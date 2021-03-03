@@ -41,6 +41,8 @@ jobs:
       #     source: "mainsite/js/pwa.js"
       #     target: "pwa_replaced_env_vars.js"
 
+      - name: replace manifest path
+        run: sed -i "s|manifest.webmanifest|/beta/latest-release/manifest.webmanifest|g" story.html
       # Runs a single command using the runners shell
       - name: print out root files
         run: |
