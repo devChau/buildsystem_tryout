@@ -46,7 +46,7 @@ jobs:
 
       # m4 kann mit templates verwendet werden
       - name: replace manifest path
-        run: sed -i "s|$webmanifest_pattern|$webmanifest_file_path" story.html
+        run: sed -i "s|manifest.webmanifest|/release/manifest.webmanifest" story.html
       # Runs a single command using the runners shell
       - name: print out root files
         run: |
