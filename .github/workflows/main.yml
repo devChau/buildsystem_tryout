@@ -31,7 +31,7 @@ jobs:
           sw_file_path: "/beta/latest-release/sw.js"      
           webmanifest_file_path: "/beta/latest-release/manifest.webmanifest"
         with: 
-          path: ./
+          path: .
           filenames: pwa.js; story.html
           recursive: true
 
@@ -41,8 +41,9 @@ jobs:
       #     source: "mainsite/js/pwa.js"
       #     target: "pwa_replaced_env_vars.js"
 
-      - name: replace manifest path
-        run: sed -i "s|manifest.webmanifest|/beta/latest-release/manifest.webmanifest|g" story.html
+      # m4 kann mit templates verwendet werden
+      # - name: replace manifest path
+      #   run: sed -i "s|manifest.webmanifest|/beta/latest-release/manifest.webmanifest" story.html
       # Runs a single command using the runners shell
       - name: print out root files
         run: |
@@ -52,6 +53,6 @@ jobs:
             
       # Runs a set of commands using the runners shell
       - name: print out subfolder files
-        run: |
-          cat mainsite/js/pwa.js
+        run: |          
           cat mainsite/story.html
+          cat mainsite/js/pwa.js
