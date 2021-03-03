@@ -31,7 +31,7 @@ jobs:
           sw_file_path: "/beta/latest-release/sw.js"      
           webmanifest_file_path: "/beta/latest-release/manifest.webmanifest"
         with: 
-          path: ./story.html
+          path: story.html
           #filenames: pwa.js; story.html
           #recursive: true
 
