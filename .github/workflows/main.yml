@@ -31,21 +31,25 @@ jobs:
           sw_file_path: "/beta/latest-release/sw.js"      
           webmanifest_file_path: "/beta/latest-release/manifest.webmanifest"
         with: 
-          path: story.html
-          #filenames: pwa.js; story.html
-          #recursive: true
+          path: ./
+          filenames: pwa.js; story.html
+          recursive: true
 
-      - name: copy files
-        uses: canastro/copy-file-action@master
-        with: 
-          source: "mainsite/js/pwa.js"
-          target: "pwa_replaced_env_vars.js"
+      # - name: copy files
+      #   uses: canastro/copy-file-action@master
+      #   with: 
+      #     source: "mainsite/js/pwa.js"
+      #     target: "pwa_replaced_env_vars.js"
 
       # Runs a single command using the runners shell
-      - name: print out pwa
-        run: cat mainsite/js/pwa.js
-            
-      # Runs a set of commands using the runners shell
-      - name: print out copied file
+      - name: print out root files
         run: |
           cat story.html
+          cat pwa.js
+          
+            
+      # Runs a set of commands using the runners shell
+      - name: print out subfolder files
+        run: |
+          cat mainsite/js/pwa.js
+          cat mainsite/story.html
