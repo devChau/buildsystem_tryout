@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>somewhere.gl</title>
+
+    <!-- FAVICON -->
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="favicon/apple-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="favicon/apple-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="favicon/apple-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="favicon/apple-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="favicon/apple-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="favicon/apple-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="favicon/apple-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="favicon/apple-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicon/apple-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="favicon/android-icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="favicon/favicon-96x96.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicon/favicon-16x16.png"
+    />
+    <!-- <link rel="manifest" href="/beta/latest-release/manifest.webmanifest" crossorigin="use-credentials"/> -->
+    <link rel="manifest" href=manifest.webmanifest/>
+    <!-- <link rel="manifest" href="/beta/latest-release/manifest.webmanifest"/> -->
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta
+      name="msapplication-TileImage"
+      content="favicon/ms-icon-144x144.png"
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <!-- FONTS -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Asap:600i"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+      rel="stylesheet"
+    />
+
+    <!-- CSS FILES -->
+    <link href="css/shared.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="fonts/MyFontsWebfontsKit.css"
+    />
+    <!-- new intermissions UI -->
+    <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+  </head>
+
+  <body>
+    <!-- Overlay -->
+    <div class="overlay">
+      <p>
+        04.01.2021 | v0.1-alpha.X | story & main interactions included. Still buggy!
+      </p>
+      <!-- <p>hotkeys:</p>
+            <p>p: toggle pause menu</p>
+            <p>a: toggle SoundMachine diagnostics panel</p> -->
+    </div>
+    <!-- Babylon Rendercanvas -->
+    <canvas class="renderCanvas" id="renderCanvas" touch-action="none"></canvas>
+
+    <div class="loadingScreen" aria-label="Loading">
+      <div class="loadingContentWrapper">
+        <div class="loadingLogoWrapper">
+          <img class="loadingLogo main" src="assets/loading/ll_main.png" alt="" />
+          <img
+            class="loadingLogo spinner"
+            src="assets/loading/ll_sideBig.png"
+            alt=""
+          />
+          <img
+            class="loadingLogo hover spinner"
+            src="assets/loading/ll_sideSmall.png"
+            alt=""
+          />
+          <img
+            class="loadingLogo particle"
+            src="assets/loading/ll_particle.png"
+            alt=""
+          />
+        </div>
+        <div class="onboarding onboardingElement">
+          <div class="redPill onboardingHeader">TIPPS</div>
+          <div class="onboardingMessages">
+            <div class="onboardingElement onboardingMessage">
+              <div class="voice-over-icon"></div>
+              Sound an, hörst du uns?
+            </div>
+            <div class="onboardingElement onboardingMessage">
+              <div class="fullscreen-icon"></div>
+              Im Vollbildmodus lässt sich das kleine Unrund besser steuern
+            </div>
+          </div>
+        </div>
+        <button
+          class="onboarding__swipeButton intermission-button intermission-next"
+          disabled
+          aria-label="Hier klicken zum weiter gehen"
+        >
+        </button>
+      </div>
+    </div>
+
+    <div id="prologue" class="intermission hidden">
+      <button class="intermission-button intermission-previous"></button>
+      <button class="intermission-button intermission-next"></button>
+      <div class="page first-page">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Irgendwo im Nirgendwo, Für manche nur als Neuland bekannt, Lebt das
+            Rudel der Unrunds, Für uns versteckt und unerkannt.
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/prolog/sw_Intermissions_v01_Pro_valley.png"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Mittendrin, noch schüchtern und ganz jung, Tobt wie ein Wirbelwind
+            das kleine Unrund herum.
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/prolog/sw_Intermissions_v01_Pro_curious.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Und wie jedes Jahr, wenn es dunkler wird, Wenn es friert und die
+            Luft vor Kälte klirrt, Sorgt das Elterntier für ein wohliges Nest,
+            Am liebsten hätte es sich selbst hineingesetzt.
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/prolog/sw_Intermissions_v01_Pro_setupNest.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Dem kleinen Unrund ist das überhaupt nicht geheuer, Der erste
+            Winterschlaf? - klingt gar nicht nach Abenteuer. Doch dann, ganz
+            sanft, und ehe es sich versieht, Singt das Elterntier auch schon das
+            Schlaflied.
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/prolog/sw_Intermissions_v01_Pro_dontLikeSleep.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Der Kopf wird schwer, die Augen fallen zu, Ins Traumland gleitet das
+            kleine Unrund im Nu.
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/prolog/sw_Intermissions_v01_Pro_sleeping.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page last-page">
+        <div class="inner_page_last"></div>
+      </div>
+    </div>
+
+    <div id="intermission-lakeside" class="intermission hidden">
+      <button class="intermission-button intermission-previous"></button>
+      <button class="intermission-button intermission-next"></button>
+      <div class="page first-page">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Voller Hoffnung folgt das kleine Unrund dem Lied. Ohne zu wissen,
+            was auf der Reise geschieht. Folgt es den Klängen, dann ist es bald
+            wieder daheim. Das kleine Unrund ist sich sicher, genau so muss es
+            sein!
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/intermission01/swgl_Storyboard_folgtMusic.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Und tatsächlich, da schwirrt etwas Vertrautes in der Luft. Das
+            Unrund schnuppert und erkennt den köstlichen Duft.
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/intermission01/swgl_Storyboard_duft.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page last-page">
+        <div class="inner_page_last"></div>
+      </div>
+    </div>
+
+    <div id="intermission-cave-entrance" class="intermission hidden">
+      <button class="intermission-button intermission-previous"></button>
+      <button class="intermission-button intermission-next"></button>
+      <div class="page first-page">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Das Unrund ist entschlossen die Spur zu verfolgen, Doch was fällt da
+            plötzlich aus den bauschigen Wolken? Weiß, nass, kalt und irgendwie
+            schön. Das kleine Unrund hat noch nie Schnee fallen sehn.
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/intermission02/swgl_Storyboard_esBeginntZuSchneien.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Anfangs ist das alles noch ein ganz großer Spaß, Doch durch den
+            Schnee werden die Spuren ganz blass. Und nicht nur das…
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/intermission02/swgl_Storyboard_Tracktrack2.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            ...Der Wind wird stärker, das kleine Unrund ist durchgefroren. Und
+            hat irgendwann die Fährten im Schnee verloren.
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/intermission02/swgl_Storyboard_wanderingSnow.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page last-page">
+        <div class="inner_page_last"></div>
+      </div>
+    </div>
+
+    <div id="intermission-cave" class="intermission hidden">
+      <button class="intermission-button intermission-previous"></button>
+      <button class="intermission-button intermission-next"></button>
+      <div class="page first-page">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            In der lauschigen Grotte ruht das Unrund sich aus. ...Und blickt
+            verträumt in die Kälte hinaus.
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/intermission03/sw_Storyboard_v07_floP_WaitingInCaveLight.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Wo ist sein Rudel, sein geliebtes Elterntier? Das Unrund ist
+            traurig: Auf jeden Fall nicht hier... Oder doch? Da ist er wieder,
+            der köstliche Duft! Nur kommt er diesmal aus der finsteren Gruft.
+          </p>
+          <div class="intermission-image" style="mix-blend-mode: multiply;">
+            <img
+              src="assets/intermissions/intermission03/swgl_Storyboard_rememberFamily.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page dark-theme">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Das Elterntier muss da drinnen sein! Also wagt es sich tiefer in die
+            Höhle hinein.
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/intermission03/swgl_Storyboard_goingDeeper.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page last-page">
+        <div class="inner_page_last"></div>
+      </div>
+    </div>
+
+    <div id="intermission-reunion" class="intermission hidden">
+      <button class="intermission-button intermission-previous"></button>
+      <button class="intermission-button intermission-next"></button>
+      <div class="page dark-theme">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Zum Glück ist der erste Schreck schnell verschwunden, Denn – ob
+            ihr’s glaubt oder nicht – im Yeti hat das Unrund einen Freund
+            gefunden.
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/intermission04/swgl_Storyboard_yetiUnrundCaveEntrance.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page dark-theme">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Die beiden sind verschieden, das ist klar. Und doch haben sie viel
+            gemein, auch das ist wahr.
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/intermission04/swgl_Storyboard_FoodMassaker2.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page dark-theme">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Oft reden sie aneinander vorbei. Doch wenn es wichtig ist, verstehen
+            sie sich einwandfrei.
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/intermission04/swgl_Storyboard_MamaUnrundMalen.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page ">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Das Yeti hatte das Elterntier schon einmal gesehen. Es verspricht
+            mit dem kleinen Unrund, zu ihm zu gehen. Sie machen sich auf den Weg
+            in die Schneewelt hinein, Das kleine Unrund fragt sich, wo mag mein
+            Elterntier nur sein?
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/intermission04/swgl_Storyboard_YetiAufUnrundsSchultern.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page last-page">
+        <div class="inner_page_last"></div>
+      </div>
+    </div>
+
+    <div id="epilogue" class="intermission hidden">
+      <button class="intermission-button intermission-previous"></button>
+      <button class="intermission-button intermission-next"></button>
+      <div class="page first-page">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            So ein haariges Wesen ist dem Elterntier neu. Daher ist es zunächst
+            etwas ängstlich und scheu. Das kleine Unrund versichert: Das fremde
+            Geschöpf ist nicht gefährlich! Im Gegenteil: Es ist hilfsbereit,
+            friedlich und ehrlich!
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/epilog/swgl_Storyboard_Danke.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            Eis, Sturm, Höhlenmaul und ein vermeintliches Ungeheuer... Auf dem
+            Weg zurück erzählt das Unrund von seinem Abenteuer. Das Elterntier
+            ist erschrocken, gleichzeitig begeistert, Schließlich hat das kleine
+            Unrund das alles ganz alleine gemeistert!
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/epilog/swgl_Storyboard_Eislaufen.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="inner_page">
+          <p class="intermission-text" data-transition-delay="500">
+            „Zuerst hatte ich Angst vor dir“, sagt das kleine Unrund leise. Das
+            Yeti lacht: „Und ich erst vor dir! Dummerweise!" Die Beiden sind
+            erschöpft, aber nun endlich daheim. Und so schlafen sie glücklich
+            nebeneinander ein.
+          </p>
+          <div class="intermission-image">
+            <img
+              src="assets/intermissions/epilog/swgl_Storyboard_UnrundSchlaeftWiederEin.png"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="page last-page">
+        <div class="inner_page_last"></div>
+      </div>
+    </div>
+
+    <section id="end-screen" class="end hidden">
+      <h1>Ende</h1>
+      <p>Danke für's Spielen!</p>
+    </section>
+
+    <div id="portrait-over">
+      <img src="favicon/favicon-96x96.png" />
+      <div>Drehe den Bildschirm für's Kinoerlebnis.</div>
+      <img src="assets/interface/hint-rotate.svg" />
+    </div>
+
+    <div id="controls-top">
+      <div id="menu-chapter" onclick="somewhere.pause()"></div>
+    </div>
+
+    <div id="mySidenav" class="sidenav">
+      <div id="navitems">
+        <a
+          href="javascript:void(0)"
+          class="closebtn"
+          onclick="somewhere.resume()"
+          ><img src="assets/interface/btn_close.svg"
+        /></a>
+        <p class="navitems_title">Kapitelübersicht</p>
+        <div class="navitems_stretcher">
+          <ol>
+            <li><a href="#prologue" class="active">Zuhause im Nest</a></li>
+            <li><a href="#lakeside">Auf dem glatten Fluss</a></li>
+            <li><a href="#cave-entrance">Durch die Schneewüste</a></li>
+            <li><a href="#cave">Tief in der Grotte </a></li>
+            <li><a href="#reunion">Am klingenden Feld</a></li>
+          </ol>
+          <div class="back">
+            <img src="assets/interface/ic_back.svg" /><a>Zurück zum Anfang</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="controls-bottom">
+      <div id="controls-bottom-left">
+        <button id="button-add-to-home-screen" class="js-a2hs-btn">
+          Add to home screen
+        </button>
+        <!--<button id="button-play" type="button"></button> -->
+        <button id="button-voiceover" type="button"></button>
+        <button
+          id="button-fullscreen"
+          type="button"
+          onclick="somewhere.toggleFullscreen()"
+        ></button>
+      </div>
+      <div id="controls-bottom-right">
+        <div id="helper-text"><p>Hörst du die Regenwürmer husten?</p></div>
+        <div id="helper-image"></div>
+      </div>
+    </div>
+
+    <script>
+      // Onboarding / loading
+      const loadingScreen = document.querySelector('.loadingScreen');
+      const onboarding = document.querySelector('.onboarding');
+      const onboardingMessagesContainer = document.querySelector('.onboardingMessages');
+      const onboardingMessages = Array.from(
+        document.querySelectorAll('.onboardingMessage')
+      );
+      const onboardingSwipeButton = document.querySelector('.onboarding__swipeButton');
+      let onboardingMessageInterval = -1;
+      let messagesSeen = 0;
+      let isPreloaded = false;
+
+      setTimeout(() => {
+        onboarding.classList.add('visible');
+      }, 200);
+
+      function nextCycle() {
+        const visibleMessage = onboardingMessages.find(
+          (message) => message.classList.contains('visible')
+        );
+
+        const currentlyVisibleIndex = onboardingMessages.indexOf(visibleMessage);
+        const nextVisibleIndex = currentlyVisibleIndex === onboardingMessages.length - 1 ? 0 : currentlyVisibleIndex + 1;
+
+        // Fade out the current message
+        visibleMessage.classList.add('fadeOutUp');
+        setTimeout(() => {
+          // reset the previously visible one
+          visibleMessage.classList.remove('visible', 'fadeOutUp');
+        }, 800);
+
+        // Fade in the next one
+        setTimeout(() => {
+          onboardingMessages[nextVisibleIndex].classList.add('visible');
+        }, 100);
+      }
+
+      let continueResolve = function() {};
+      let playFinalMessageChime = function() {};
+
+      function showFinalMessage() {
+        clearInterval(onboardingMessageInterval);
+        const message = isMobileDevice() ?
+            "Wische jetzt nach links um weiter zu gehen."
+          : "Klick den Button um weiter zu gehen."
+
+        onboardingMessagesContainer.innerHTML = `
+          <div class="onboardingElement onboardingMessage" style="opacity: 1;">
+            ${message}
+          </div>
+        `;
+        onboardingSwipeButton.style.visibility = "visible";
+        onboardingSwipeButton.removeAttribute('disabled');
+        // playFinalMessageChime();
+
+        function continueToStory() {
+          loadingScreen.classList.add('hide');
+          setTimeout(() => {
+            onboarding.remove();
+            loadingScreen.remove();
+            continueResolve();
+          }, 800);
+        }
+        onboardingSwipeButton.addEventListener('click', continueToStory);
+        loadingScreen.addEventListener('touchend', continueToStory);
+      }
+
+      setTimeout(() => {
+        // show the first message
+        onboardingMessages[0].classList.add('visible');
+        messagesSeen = 1;
+
+        // cycle through the messages
+        onboardingMessageInterval = setInterval(() => {
+          // Keep cycling through messages if not all seen
+          const hasSeenAllMessages = messagesSeen >= onboardingMessages.length;
+          if (hasSeenAllMessages && isPreloaded) {
+            showFinalMessage()
+          } else {
+            messagesSeen = messagesSeen + 1;
+            nextCycle();
+          }
+        }, 5000);
+      }, 500);
+
+      function isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      }
+
+      // Removes the cycling onboarding messages and asks the user to swipe or click
+      window.finishOnboarding = function finishOnboarding(chimeFn) {
+        isPreloaded = true;
+        playFinalMessageChime = chimeFn;
+
+        return new Promise((resolve) => {
+          continueResolve = resolve;
+        });
+      };
+    </script>
+    <!-- SCENE FILES -->
+    <script type="module" crossorigin>
+      import { initialize } from "./js/setup.js";
+
+      const canvas = document.getElementById("renderCanvas");
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        () => {
+          initialize(canvas, window.finishOnboarding).then((somewhere) => {
+            window.somewhere = somewhere;
+          });
+        },
+        false
+      );
+    </script>
+  </body>
+</html>
