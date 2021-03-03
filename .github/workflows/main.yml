@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: tryout buildsystem actions
 
 # Controls when the action will run. 
 on:
@@ -29,8 +29,10 @@ jobs:
         uses: sandersaares-actions/expand-tokens@master
         env:
           sw_file_path: "/beta/latest-release/sw.js"      
+          webmanifest_file_path: "/beta/latest-release/manifest.webmanifest"
         with: 
-          path: mainsite/js
+          path: ./
+          filenames: pwa.js; story.html
           recursive: true
 
       - name: copy files
@@ -40,11 +42,10 @@ jobs:
           target: "pwa_replaced_env_vars.js"
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
+      - name: print out pwa
+        run: cat mainsite/js/pwa.js
+            
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: print out copied file
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          cat story.html
