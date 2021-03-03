@@ -32,7 +32,7 @@ jobs:
       - name: replace env vars in files
         uses: sandersaares-actions/expand-tokens@master
         env:
-          sw_file_path: $swpath
+          sw_file_path: env.swpath
         with: 
           path: .
           filenames: pwa.js; story.html
@@ -45,8 +45,8 @@ jobs:
       #     target: "pwa_replaced_env_vars.js"
 
       # m4 kann mit templates verwendet werden
-      - name: replace manifest path
-        run: sed -i "s|manifest.webmanifest|/release/manifest.webmanifest" story.html
+      # - name: replace manifest path
+      #   run: sed -i "s|manifest.webmanifest|/release/manifest.webmanifest" story.html
       # Runs a single command using the runners shell
       - name: print out root files
         run: |
