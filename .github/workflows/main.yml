@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: tryout buildsystem actions
 
 # Controls when the action will run. 
 on:
@@ -30,8 +30,8 @@ jobs:
         env:
           sw_file_path: "/beta/latest-release/sw.js"      
         with: 
-          path: mainsite/js
-          recursive: true
+          path: mainsite/js/pwa.js
+          # recursive: true
 
       - name: copy files
         uses: canastro/copy-file-action@master
