@@ -3,11 +3,12 @@
 // Article: https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Add_to_home_screen
 const addBtn = document.querySelector(".js-a2hs-btn");
 
-// Install the service worker in case it's supported
+console.log(__sw_file_path__);
 
+// Install the service worker in case it's supported
 if ("serviceWorker" in navigator) {
   // env vars are merged via babel script
-  navigator.serviceWorker.register(process.env.SW_FILE_PATH);
+  navigator.serviceWorker.register(__sw_file_path__);
 }
 
 export default function initialize() {

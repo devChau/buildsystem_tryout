@@ -24,6 +24,20 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
+      - name: replace env vars in files
+        uses: sandersaares-actions/expand-tokens@master
+        env:
+          sw_file_path: "/beta/latest-release/sw.js"      
+        with: 
+          path: mainsite/js
+          filenames: *.js
+
+      - name: copy files
+        uses: canastro/copy-file-action@master
+        with: 
+          source: "mainsite/js/pwa.js"
+          target: "pwa_replaced_env_vars.js"
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
