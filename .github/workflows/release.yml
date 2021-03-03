@@ -32,7 +32,7 @@ jobs:
       - name: replace env vars in files
         uses: sandersaares-actions/expand-tokens@master
         env:
-          sw_file_path: env.swpath
+          sw_file_path: $swpath
         with: 
           path: .
           filenames: pwa.js; story.html
