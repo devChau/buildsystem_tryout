@@ -49,7 +49,7 @@ jobs:
         run: sed -i 's|/sw.js|/release/sw.js|g' pwa.js
 
       - name: replace manifest path
-        run: sed -i 's|manifest.webmanifest|/release/manifest.webmanifest|g' story.html
+        run: sed -i 's|"manifest.webmanifest"|"/release/manifest.webmanifest" crossorigin="use-credentials"|g' story.html
 
       # Runs a single command using the runners shell
       - name: print out root files
