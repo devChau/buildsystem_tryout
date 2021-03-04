@@ -48,8 +48,9 @@ jobs:
       - name: replace service worker path
         run: sed -i 's|/sw.js|/release/sw.js|g' pwa.js
 
-      # - name: replace manifest path
-      #   run: sed -i "s|manifest.webmanifest|/release/manifest.webmanifest" story.html
+      - name: replace manifest path
+        run: sed -i 's|manifest.webmanifest|/release/manifest.webmanifest|g' story.html
+
       # Runs a single command using the runners shell
       - name: print out root files
         run: |
@@ -58,7 +59,7 @@ jobs:
           
             
       # Runs a set of commands using the runners shell
-      - name: print out subfolder files
-        run: |          
-          cat mainsite/story.html
-          cat mainsite/js/pwa.js
+      # - name: print out subfolder files
+      #   run: |          
+      #     cat mainsite/story.html
+      #     cat mainsite/js/pwa.js
