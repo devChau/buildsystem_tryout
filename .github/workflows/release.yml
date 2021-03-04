@@ -46,7 +46,7 @@ jobs:
 
       # m4 kann mit templates verwendet werden
       - name: replace service worker path
-        run: sed -i 's|/sw.js|/release/sw.js' pwa.js
+        run: sed -i 's|/sw.js|/release/sw.js|g' pwa.js
 
       # - name: replace manifest path
       #   run: sed -i "s|manifest.webmanifest|/release/manifest.webmanifest" story.html
